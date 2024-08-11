@@ -1,45 +1,38 @@
-// const swiper = document.querySelector(".slider-container");
+const changer = function () {
+  console.log("изменился размер окна");
+  if (document.documentElement.clientWidth < 767.98) {
+    const swiper = new Swiper(".swiper", {
+      direction: "horizontal",
+      loop: true,
+      spaceBetween: 16,
+      slidesPerView: 1.3,
 
-// function mobileSlider() {
-//   if (window.innerWidth <= 767.98 && swiper.dataset.mobile == "false") {
-//     const mySwiper = new Swiper(".swiper", {
-//       slidesPerView: 1.3,
-//       direction: "vertical",
-//       loop: true,
-//       slideClass: "slider-slide",
-//     });
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+    });
+  } else {
+    let buttonOpen = document.querySelector(".footer__open");
+    let buttonClose = document.querySelector(".footer__close");
+    let swiper = document.querySelector(".swiper-wrapper");
 
-//     swiper.dataset.mobile = "true";
-//   } else {
-//     swiper.dataset.mobile = "false";
-//     mySwiper.destroy();
-//   }
-// }
+    buttonOpen.addEventListener("click", function () {
+      swiper.classList.remove("swiper-wrapper--height");
+      buttonOpen.classList.add("hide");
+      buttonClose.classList.remove("hide");
+    });
 
-// mobileSlider();
+    buttonClose.addEventListener("click", function () {
+      swiper.classList.add("swiper-wrapper--height");
+      buttonOpen.classList.remove("hide");
+      buttonClose.classList.add("hide");
+    });
+  }
+};
 
-// window.addEventListener("resize", () => {
-//   mobileSlider();
-// });
+changer();
 
-const swiper = new Swiper(".swiper", {
-  // Optional parameters
-  direction: "vertical",
-  loop: true,
-
-  // If we need pagination
-  pagination: {
-    el: ".swiper-pagination",
-  },
-
-  // // Navigation arrows
-  // navigation: {
-  //   nextEl: '.swiper-button-next',
-  //   prevEl: '.swiper-button-prev',
-  // },
-
-  // // And if we need scrollbar
-  // scrollbar: {
-  //   el: '.swiper-scrollbar',
-  // },
+window.addEventListener("resize", () => {
+  changer();
 });
